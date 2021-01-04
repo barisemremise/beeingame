@@ -1,0 +1,135 @@
+{% extends 'toolbar.html' %}
+{% block title %}Game{% endblock %}
+{% block content %}
+<body>
+    <section class=" list hero is-fullheight">
+        <div style="margin:6% ; margin-top:5%; background-color: rgba(5,4,2,0.4);">
+            <div style="margin-top: 2%;">
+                <h1 id="h1" style="text-align: center;">{{ game.name }}</h1>
+            </div>
+                <div class="columns" style="margin-top: 2%;">
+                    <div class="column is-two-fifths" style="margin-left:3%;">
+                        <iframe width="560" height="315" src="{{ game.link }}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+                    <div class="column" style="margin: auto; margin-right: 3%;">
+                        <table class="gametab">
+                            <tr>
+                                <td>Price:&nbsp</td>
+                                <td>{%if game.price %}{{ game.price }} TL{% else %}Free to Play{% endif %}</td>
+                            </tr>
+                            <tr>
+                                <td>Developer:&nbsp</td>
+                                <td>{{ game.company }}</td>
+                            </tr>
+                            <tr>
+                                <td>Age Rate:&nbsp</td>
+                                <td>PEGI {{ game.age }}</td>
+                            </tr>
+                            <tr>
+                                <td>Mode:&nbsp</td>
+                                <td>{% if game.mode=='M' %}Multiplayer{% elif game.mode=='S' %}Singleplayer{% else %}Multiplayer, Singleplayer {% endif %}</td>
+                            </tr>
+                            <tr>
+                                <td>Genre:&nbsp</td>
+                                <td>{% for i in game.genre %}{{ i }}{% if i != game.genre[(game.genre|length)-1] %}, {% endif %}{% endfor %}</td>
+                            </tr>
+                            <tr>
+                                <td>Beeingame Score:&nbsp</td>
+                                <td>{{ game.score }}</td>
+                            </tr>
+                        </table>  
+                    </div>
+                </div>
+                <div>
+                    <p class="gameinfo" style="margin:3%;">{{ game.content }}
+                    </p>
+                </div> 
+                <nav class="level">
+                    <div class="level-left" style="margin-left: 3%;">
+                        <div class="level-item">
+                            <p class="gameinfo"><strong class="gameinfo" style="color: green;">{{ game.likes }} </strong>likes</p>
+                        </div>
+                        <div class="level-item">
+                            <p class="gameinfo"><strong class="gameinfo" style="color: red;">{{ game.dislikes }} </strong>dislikes</p>
+                        </div>
+                    </div>
+                    {%if gameid not in likes %}
+                    <div class="level-rigth" style="margin-right: 3%;">
+                    <form action="{{ url_for('game_page', gameid=gameid) }}" method="POST">
+                        <div class="columns is-vcentered">
+                            <div class="column">
+                                <input type="submit" class="level-item button is-success is-outlined" name="like" value="LIKE"></input>
+                            </div>
+                            <div class="colums">
+                                <input type="submit" class="level-item button is-outlined is-danger" name="dislike" value="DISLIKE"></input>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                    {% else %}
+                    <div class="level-rigth" style="margin-right: 3%;">
+                        <form action="{{ url_for('game_page', gameid=gameid) }}" method="POST">
+                            <div class="columns is-vcentered">
+                                <div class="column">
+                                    <input type="submit" class="level-item button is-danger is-outlined" name="remove_game" value="Remove from list"></input>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    {% endif %}
+                </nav>
+                {% if current_user.is_active %}
+                <form action="" method="POST" name="game_page">
+                    <div class="field">
+                        <p class="control" style="margin-left: 3%;margin-right: 3%;">
+                          <textarea class="textarea is-warning" type="text" name="comment" placeholder="Add a comment..."></textarea>
+                        </p>
+                      </div>
+                      <nav class="navbar" style="margin-left: 2.2%;">
+                        <div class="control navbar-item">
+                            <input class="input is-warning" type="text" name="commentsuser" placeholder="Username" style="width:fit-content;">
+                          </div>
+                          <div class="control navbar-item"><button type="submit" class="button is-warning">Submit</button></div>
+                      </nav>
+                      <br>
+                </form>
+                {% if comments %}
+                <h3 class="title is-3" style="margin-left: 3%; color: gold;">Comments</h4>
+                <ul id="comments" type="1">
+                    {% for user,comment in comments %}
+                    <li>
+                        <div class="content">
+                            <a style="color: gold;" href="{{ url_for('user_page', username=user.username) }}">@{{ user.username }}</a>
+                              <p>
+                                {{ comment.content }}
+                              </p>
+                              {% if current_user.id==user.id %}
+                              <nav class="navbar">
+                              <form action="{{ url_for('game_page', gameid=gameid) }}" method="POST">
+                                <input class="input is-warning" type="text" name="update" placeholder="Update your comment" style="width:fit-content;">
+                                <input type="hidden" name="commentup" value="{{ comment.id }}"/>
+                                  <button class="button is-success is-outlined" type="submit" style="color: green;">Update</a>
+                            </form>
+                            <form action="{{ url_for('game_page', gameid=gameid) }}" method="POST">
+                                <button class="button is-danger is-outlined" type="submit" name="delete" value="{{comment.id}}"style="color: red;">Delete</a>
+                            </form>
+                        </nav>
+                              {% endif %}                         
+                            </div>
+                          <br>
+                    </li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+                {% else %}
+                <h3 class="title is-3" style="margin-left: 3%; color: gold;">Sign up to be able to write and view comments.</h4>
+                    <br>
+                {% endif %}
+            </div>
+            
+            <footer style="text-align: center;">
+                <small style="color: goldenrod; ">&copy; 2020, Barış Emre Mişe</small>
+            </footer>
+    </section>
+</body>
+{% endblock %}

@@ -1,0 +1,29 @@
+{% extends 'toolbar.html' %}
+{% block title %}Home{% endblock %}
+{% block content %}
+
+<body>
+    <section class="home hero is-fullheight">
+        <div class="transparent" style="margin: 10%;">
+            <h1 id="h1">Welcome to Beeingame!</h1>
+            {% if current_user.is_anonymous %}
+            <h3 id="h3">If you like playing video games, you are at the right place. In this website you can get information about popular video games.
+                You can access the page you want by using the navigation bar. If you want to write comments or like games, please sign up from<a href="{{ url_for('signup_page') }}" style="color: gold;"> here</a>.
+            </h3>
+            {% else %}
+            <h1 id="h3" style="text-align: center;">Registered Users</h1>
+            <div class="content">
+                <ol id="gamelist" type="1" style="padding-left: 3%;">
+                  {% for username in users %}
+                    <li style="color: gold;"><a class="a" href="{{ url_for('user_page', username=username) }}"  >{{ username }}</a></li>
+                    {% endfor %}
+                  </ol>
+            </div>
+            {% endif %}
+        </div>
+        <footer style="text-align: center;">
+            <small style="color: goldenrod; ">&copy; 2020, Barış Emre Mişe</small>
+        </footer>
+    </section>
+</body>
+{% endblock %}

@@ -1,0 +1,71 @@
+.login{
+    background-image: url('/static/wallpaper/2.jpg');
+    background-size: cover;
+    background-attachment: fixed;
+}
+.list{
+    background-image: url('/static/wallpaper/3.jpg');
+    background-attachment: fixed;
+    background-size: cover;
+}
+.home{
+    background-image: url('/static/wallpaper/1.png');
+    background-attachment: fixed;
+    background-size: cover;
+}
+
+#h1{
+    color: gold;
+    font-size: 500%;
+}
+
+#h3{
+    font-size: 275%;
+    color:whitesmoke;
+}
+
+#w1{
+    color:white;
+    font-size: 500%;
+}
+
+.transparent{
+    text-align: center; 
+    background-color: rgba(5,4,2,0.4);
+}
+
+.gametab{
+    color: white;
+    background-color:rgba(5, 4, 2, 0);
+    font-size: xx-large;
+    text-align: left;
+}
+
+.gameinfo{
+    color: whitesmoke;
+    font-size: xx-large;
+}
+
+#gamelist{
+    font-size: 250%;
+    color: gold;
+    margin: 6%;
+    margin-top: 3%;
+    text-align: left;
+}
+
+.a{
+    color: whitesmoke;
+}
+
+.filters{
+    color: whitesmoke;
+    padding: 2%;
+}
+
+#comments{
+    font-size: x-large;
+    color: whitesmoke;
+    margin: 3%;
+    margin-top: 1%;
+}

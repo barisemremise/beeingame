@@ -1,0 +1,20 @@
+{% extends 'toolbar.html' %}
+{% block title %}Warning{% endblock %}
+{% block content %}
+
+<body>
+    <section class="home hero is-fullheight">
+        <div style="text-align: center; margin: 20%; margin-top:10%; background-color: rgba(197, 31, 31, 0.74);">
+            <h1 id="w1">WARNING</h1>
+            {% if current_user.is_anonymous %}
+            <h3 id="h3">THIS GAME MAY CONTAIN CONTENT NOT APPROPRIATE FOR UNDER 18, OR MAY NOT BE APPROPRIATE FOR VIEWING WITHOUT<a href="{{ url_for('signup_page') }}"> REGISTERED</a>.
+            </h3>
+            {% else %}
+            <h3 id="h3">THIS GAME MAY CONTAIN CONTENT NOT APPROPRIATE FOR UNDER 18, RETURN TO<a href="{{ url_for('home_page') }}"> HOME PAGE</a>.
+            </h3>
+            {% endif %}
+        </div>
+
+    </section>
+</body>
+{% endblock %}

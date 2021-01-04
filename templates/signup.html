@@ -1,0 +1,61 @@
+{% extends 'toolbar.html' %}
+{% block title %}Sign Up{% endblock %}
+{% block content %}
+<body class="login">
+    <section class="hero is-fullheight">
+              
+        <div class="column is-one-third" style="margin: auto; margin-top: 5%; align-items: center;">
+            <div class="box">
+                <figure class="image is-128x128" style="margin-left: auto;margin-right: auto;">
+                    <img class="is-rounded" src="/static/photos/logo.png">
+                </figure> 
+                  <h3 style="font-size: xx-large; margin: auto; color: black;">Join Beeingame!</h3>
+                  <br>
+                  <form action="{{ url_for('signup_page') }}" method="POST">
+                    <div class="field">
+                        <div class="control">
+                          <input class="input" type="text" placeholder="Name" name="name">
+                        </div>
+                      </div>
+                      <div class="field">
+                        <div class="control">
+                          <input class="input" type="text" placeholder="Username" name="username">
+                        </div>
+                      </div>
+                      <div class="field">
+                        <div class="control">
+                          <input class="input" type="email" placeholder="Email" name="email">
+                        </div>
+                      </div>
+                      <div class="field">
+                        <div class="control">
+                          <input class="input" type="text" placeholder="Birth year" name="year">
+                        </div>
+                      </div>
+                      <div class="field">
+                        <div class="control">
+                          <label class="radio">
+                            <input type="radio" name="gender" value="Male" checked> Male
+                          </label>
+                          <label class="radio">
+                            <input type="radio" name="gender" value="Female"> Female
+                          </label>
+                          <label class="radio">
+                            <input type="radio" name="gender" value="Other"> Other
+                          </label>
+                        </div>
+                      </div>
+                    <div class="field">
+                      <div class="control">
+                        <input class="input" type="password" name="password" placeholder="Password">
+                      </div>
+                    </div>
+                      <button type="submit" class="button is-block is-warning is-fullwidth" style="margin: auto;" formnovalidate="formnovalidate">Sign Up</button>
+                      <br>
+                      <a href="{{ url_for('login_page') }}">Already have an account? Login</a>
+                  </form>
+            </div>
+          </div>
+    </section>
+</body>
+{% endblock %}

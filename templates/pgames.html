@@ -1,0 +1,89 @@
+{% extends 'toolbar.html' %}
+{% block title %}Popular Games{% endblock %}
+{% block content %}
+
+<body>
+    <section class=" list hero is-fullheight">
+        <div class="columns" style=" margin: 3%;margin-top: 3.5%;">
+          <div class="column is-one-fifth">
+            <aside class="menu" style="background-color: rgba(56, 2, 92, 0.479);padding: 8%;">
+              <p class="menu-label">
+                Filters
+              </p>
+              <form action="{{ url_for('pgames_page') }}" method="POST">
+                <ul class="menu-list">
+                  <li>
+                    <p style="color: whitesmoke; font-size: large;">Genres</p>
+                    <ul>
+                      <li><input type="checkbox" name="genre" value="Action"><label class="filters">Action</label></li>
+                      <li><input type="checkbox" name="genre" value="Adventure"><label class="filters">Adventure</label></li>
+                      <li><input type="checkbox" name="genre" value="Battle Royal"><label class="filters">Battle Royal</label></li>
+                      <li><input type="checkbox" name="genre" value="Board Game"><label class="filters">Board Game</label></li>
+                      <li><input type="checkbox" name="genre" value="FPS"><label class="filters">FPS</label></li>
+                      <li><input type="checkbox" name="genre" value="MOBA"><label class="filters">MOBA</label></li>
+                      <li><input type="checkbox" name="genre" value="Racing"><label class="filters">Racing</label></li>
+                      <li><input type="checkbox" name="genre" value="RPG"><label class="filters">RPG</label></li>
+                      <li><input type="checkbox" name="genre" value="Simulation"><label class="filters">Simulation</label></li>
+                      <li><input type="checkbox" name="genre" value="Sports"><label class="filters">Sports</label></li>
+                      <li><input type="checkbox" name="genre" value="Strategy"><label class="filters">Strategy</label></li>
+                      <li><input type="checkbox" name="genre" value="Superhero"><label class="filters">Superhero</label></li>
+                    </ul>
+                  </li>
+                  <li>
+                    <p style="color: whitesmoke; font-size: large;">Modes</p>
+                    <ul>
+                      <li><input type="checkbox" name="mode" value="M"><label class="filters">Multiplayer</label></li>
+                      <li><input type="checkbox" name="mode" value="S"><label class="filters">Singleplayer</label></li>
+                    </ul>
+                  </li>
+                  <li>
+                    <p style="color: whitesmoke; font-size: large;">Price</p>
+                    <ul>
+                      <li><input type="checkbox" name="price" value="1"><label class="filters">0 - 50 TL</label></li>
+                      <li><input type="checkbox" name="price" value="2"><label class="filters">50 - 100 TL</label></li>
+                      <li><input type="checkbox" name="price" value="3"><label class="filters">100 TL and above</label></li>
+                    </ul>
+                  </li>
+                  <li>
+                    <p style="color: whitesmoke; font-size: large;">Age Rate (PEGI)</p>
+                    <ul>
+                      <li><input type="checkbox" name="age" value="3"><label class="filters">PEGI 3</label></li>
+                      <li><input type="checkbox" name="age" value="7"><label class="filters">PEGI 7</label></li>
+                      <li><input type="checkbox" name="age" value="12"><label class="filters">PEGI 12</label></li>
+                      <li><input type="checkbox" name="age" value="16"><label class="filters">PEGI 16</label></li>
+                      <li><input type="checkbox" name="age" value="18"><label class="filters">PEGI 18</label></li>
+                    </ul>
+                  </li>
+                  <div class="control"><button class="button is-warning" type="submit" style="width: 100%;">Apply Filters</button></div>
+                  <a class="button is-warning is-outlined" href="{{ url_for('pgames_page') }}" style="width: 100%;">Reset Filters</a>
+                </ul>
+              </form>
+              
+            </aside>
+          </div>
+            
+            <div class="transparent column">
+                <h1 id="h1" style="text-align: center;">{{ title }}</h1>
+                {% if games %}
+            <div class="content">
+                <ol id="gamelist" type="1" style="padding-left: 3%;">
+                  {% for gameid, game in games %}
+                  {% if game.age==18 and ((current_user.is_anonymous) or (current_user.age < 18 )) %}
+                  <li style="color: gold;"><a class="a"href="{{ url_for('warning_page') }}">{{ game.name }}</a></li>
+                    {% else %}
+                    <li style="color: gold;"><a class="a" href="{{ url_for('game_page', gameid=game.id) }}"  >{{ game.name }}</a></li>
+                    {% endif %}
+                    {% endfor %}
+                  </ol>
+            </div>
+            {% else %}
+            <h3 style="color: white;font-size: xx-large;">Game not found :(</h3>
+            {% endif %}
+            </div>
+        </div>
+        <footer style="text-align: center;">
+          <small style="color: goldenrod; ">&copy; 2020, Barış Emre Mişe</small>
+      </footer>
+    </section>
+</body>
+{% endblock %}

@@ -1,0 +1,55 @@
+{% extends 'toolbar.html' %}
+{% block title %}User{% endblock %}
+{% block content %}
+<body>
+    <section class=" list hero is-fullheight">
+        <div style="margin:6% ; margin-top:5%; background-color: rgba(5,4,2,0.4);">
+            <div style="margin-top: 2%;">
+                <h1 id="h1" style="text-align: center;">{{ user.username }}</h1>
+            </div>
+                        <table class="gametab" style="margin: auto; font-size: 300%;">
+                            <tr>
+                                <td>Name:&nbsp</td>
+                                <td>{{ user.name }}</td>
+                            </tr>
+                            <tr>
+                                <td>Age:&nbsp</td>
+                                <td>{{ user.age }}</td>
+                            </tr>
+                            <tr>
+                                <td>Gender:&nbsp</td>
+                                <td>{{ user.gender }}</td>
+                            </tr>
+                            <tr>
+                                <td>E-mail:&nbsp</td>
+                                <td>{{ user.email }}</td>
+                            </tr>
+                        </table>
+                        {% if games %}
+                            {% if listname %}
+                            <h1 id="h1" style="text-align: center;color: gold;">{{ listname }}</h1>
+                            {% else %}
+                            <h1 id="h1" style="text-align: center;color: gold;">{{ user.username }}'s Game List</h1>
+                            {% endif %}
+                        <div class="content">
+                            <ol id="gamelist" type="1" style="padding-left: 3%;">
+                              {% for gameid, game in games %}
+                              {% if game.age %}
+                                <li style="color: gold;"><a class="a"href="{{ url_for('game_page', gameid=game.id) }}"  >{{ game.name }}</a></li>
+                                {% else %}
+                                <li style="color: gold;"><a class="a"href="{{ url_for('warning_page') }}">{{ game.name }}</a></li>
+                                {% endif %}
+                                {% endfor %}
+                              </ol>
+                        </div>
+                        {% endif %}
+                        </div>
+        </div>
+        <footer style="text-align: center;">
+            <small style="color: goldenrod; ">&copy; 2020, Barış Emre Mişe</small>
+        </footer>
+    </section>
+    
+</body>
+
+{% endblock %}

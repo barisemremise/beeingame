@@ -1,0 +1,32 @@
+{% extends 'toolbar.html' %}
+{% block title %}Popular Games{% endblock %}
+{% block content %}
+
+<body>
+    <section class=" list hero is-fullheight">
+        <div class="columns" style=" margin: 3%;margin-top: 3.5%;">  
+            <div class="transparent column">
+                <h1 id="h1" style="text-align: center;">{{ title }}</h1>
+                {% if games %}
+            <div class="content">
+                <ol id="gamelist" type="1" style="padding-left: 3%;">
+                  {% for game in games %}
+                  {% if game.age==18 and current_user.is_anonymous %}
+                  <li style="color: gold;"><a class="a"href="{{ url_for('warning_page') }}">{{ game.name }}</a></li>
+                    {% else %}
+                    <li style="color: gold;"><a class="a" href="{{ url_for('game_page', gameid=game.id) }}"  >{{ game.name }}</a></li>
+                    {% endif %}
+                    {% endfor %}
+                  </ol>
+            </div>
+            {% else %}
+            <h3 style="color: white;font-size: xx-large;">Game not found :(</h3>
+            {% endif %}
+            </div>
+        </div>
+        <footer style="text-align: center;">
+          <small style="color: goldenrod; ">&copy; 2020, Barış Emre Mişe</small>
+      </footer>
+    </section>
+</body>
+{% endblock %}
