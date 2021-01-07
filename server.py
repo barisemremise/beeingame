@@ -15,6 +15,7 @@ def load_user(user_id):
 def create_app():
     app=Flask(__name__)
     app.add_url_rule("/", view_func=view.home_page)
+    app.add_url_rule("/insert_db", view_func=view.insert_db)
     app.add_url_rule("/login", view_func=view.login_page, methods=["GET","POST"])
     app.add_url_rule("/games", view_func=view.pgames_page, methods=["GET", "POST"])
     app.add_url_rule("/signup",view_func=view.signup_page, methods=["GET","POST"])
