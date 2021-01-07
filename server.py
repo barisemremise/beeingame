@@ -32,7 +32,6 @@ def create_app():
 
     db = gamebase()
     view.connect_db()
-    view.insert_db()
     view.create_gamebase(db)
     app.config["db"]=db
     return app
