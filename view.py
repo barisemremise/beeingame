@@ -437,7 +437,7 @@ def insert_db():
 
 def connect_db():
     global connection
-    connection = psycopg2.connect(db_url, sslmode='require'))
+    connection = psycopg2.connect(db_url, sslmode='require')
 
     global cursor
     cursor = connection.cursor()
