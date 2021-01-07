@@ -437,9 +437,7 @@ def insert_db():
 
 def connect_db():
     global connection
-    connection = psycopg2.connect(user="postgres",
-                                  password="baris.7200",
-                                  database="beeingame")
+    connection = psycopg2.connect(db_url, sslmode='require'))
 
     global cursor
     cursor = connection.cursor()
