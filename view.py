@@ -8,12 +8,13 @@ from passlib.hash import pbkdf2_sha256 as hasher
 from operator import itemgetter
 from game import Game
 import psycopg2
+import os
+
+db_url=os.environ.get("DATABASE_URL")
 
 def connect_db():
     global connection
-    connection = psycopg2.connect(user="postgres",
-                                  password="baris.7200",
-                                  database="beeingame")
+    connection = psycopg2.connect(db_url, sslmode='require')
 
     global cursor
     cursor = connection.cursor()
