@@ -45,8 +45,14 @@
                     <a class="button is-warning is-inverted" href="{{ url_for('login_page') }}">Login</a>
                   </span>
                   {% else %}
+                  {% if current_user.is_admin %}
+                  <span class="navbar-item">
+                    <a class="button is-warning is-inverted" href="{{url_for('new_game') }}">Add Game</a>
+                  </span>
+                  {% endif %}
                   <span class="navbar-item">
                     <a class="button is-warning is-inverted" href="{{url_for('settings_page') }}">Settings</a>
+                  </span>
                   <span class="navbar-item">
                     <a class="button is-warning is-inverted" href="{{ url_for('user_page', username=current_user.username) }}">{{ current_user.username }}</a>
                   </span>

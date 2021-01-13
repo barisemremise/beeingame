@@ -6,7 +6,7 @@ import datetime
 x = datetime.datetime.now()
 
 class User(UserMixin):
-    def __init__(self, id, username, name, birth, gender, email, password):
+    def __init__(self, id, username, name, birth, gender, email, password, is_admin):
         self.username = username
         self.id=id
         self.name=name
@@ -15,6 +15,7 @@ class User(UserMixin):
         self.email=email
         self.password = password
         self.active = True
+        self.is_admin = is_admin
 
     def get_id(self):
         return self.username

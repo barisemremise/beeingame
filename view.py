@@ -36,10 +36,10 @@ def insert_db():
         game_mode VARCHAR(2) NOT NULL,
         trailer VARCHAR NOT NULL,
         game_info TEXT NOT NULL,
-        likes INTEGER,
-        dislikes INTEGER,
+        likes INTEGER SET DEFAULT 0,
+        dislikes INTEGER SET DEFAULT 0,
         FOREIGN KEY (company_id) REFERENCES company(company_id)
-        ON DELETE RESTRICT
+        ON DELETE CASCADE
         ON UPDATE CASCADE
     );'''
     cursor.execute(query)
@@ -67,6 +67,7 @@ def insert_db():
         gender VARCHAR(6),
         email VARCHAR NOT NULL UNIQUE,
         user_password VARCHAR NOT NULL,
+        is_admin BOOLEAN SET DEFAULT False,
         CHECK(birthyear>=1900 and birthyear<=2021)
     );'''
     cursor.execute(query)
@@ -199,7 +200,7 @@ def insert_db():
     ('Portal 2',18.50,(SELECT company_id FROM company WHERE company_name='Valve'), 12, 'S', 'https://www.youtube.com/embed/tax4e4hBBZc', 
     'The single-player portion of Portal 2 introduces a cast of dynamic new characters, a host of fresh puzzle elements, and a much larger set of devious test chambers. Players will explore never-before-seen areas of the Aperture Science Labs and be reunited with GLaDOS, the occasionally murderous computer companion who guided them through the original game.
     The game’s two-player cooperative mode features its own entirely separate campaign with a unique story, test chambers, and two new player characters. This new mode forces players to reconsider everything they thought they knew about portals. Success will require them to not just act cooperatively, but to think cooperatively.', 0,0),
-    ('Mortal Kombat 11',82.00,(SELECT company_id FROM company WHERE company_name='NetherRealm Studios'), 18, 'MS', 'https://www.youtube.com/embed/4ANaKFnOOjk', 
+    ('Mortal Kombat 11',82.00,(SELECT company_id FROM company WHERE company_name='NetherRealm Studios'), 18, 'MS', 'https://www.youtube.com/embed/7zwQPJmg-Kg', 
     'MK is back and better than ever in the next evolution of the iconic franchise.
     The all new Custom Character Variations give you unprecedented control of your fighters to make them your own. The new graphics engine showcases every skull-shattering, eye-popping moment, bringing you so close to the fight you can feel it. Featuring a roster of new and returning Klassic Fighters, Mortal Kombat''s best-in-class cinematic story mode continues the epic saga over 25 years in the making.', 0,0),
     ('NBA 2K21',419.00,(SELECT company_id FROM company WHERE company_name='2K'), 3, 'MS', 'https://www.youtube.com/embed/Jy00FgZNias', 
@@ -268,20 +269,20 @@ def insert_db():
     'F1® 2020 is the most comprehensive F1® game yet, putting players firmly in the driving seat as they race against the best drivers in the world. For the first time, players can create their own F1® team by creating a driver, then choosing a sponsor, an engine supplier, hiring a teammate and competing as the 11th team on the grid. Build facilities, develop the team over time and drive to the top.', 0,0),
     ('STAR WARS: Squadrons',279.99,(SELECT company_id FROM company WHERE company_name='Motive Studios'), 12, 'MS', 'https://www.youtube.com/embed/nCcfJ9uEwvs', 
     'Master the art of starfighter combat in the authentic piloting experience STAR WARS™: Squadrons. Buckle up and feel the adrenaline of first-person, multiplayer space dogfights alongside your squadron. Pilots who enlist will step into the cockpits of starfighters from both the New Republic and Imperial fleets and fight in strategic 5v5 space battles. Modify your starfighter, and adjust the composition of your squadron to suit varying playstyles and crush the opposition. Pilots will triumph as a team and complete tactical objectives across known and never-before-seen battlefields, including the gas giant of Yavin Prime and the shattered moon of Galitan. Take control of starfighters such as the X-wing and TIE fighter. Customize loadouts and cosmetics. Divert power between weapons, shields, and engines while immersing yourself in the cockpit. In addition, players will have the option to play the entirety of the game in virtual reality (VR)!', 0,0),
-    ('Tabletop Simulator',31.00,(SELECT company_id FROM company WHERE company_name='Berserk Games'), 7, 'M', 'https://www.youtube.com/embed/Wj3dUvGLjNQ', 
+    ('Tabletop Simulator',31.00,(SELECT company_id FROM company WHERE company_name='Berserk Games'), 7, 'M', 'https://www.youtube.com/embed/JBqernEHjUc', 
     'Create your own original games, import custom assets, automate games with scripting, set up complete RPG dungeons, manipulate the physics, create hinges & joints, and of course flip the table when you are losing the game. All with an easy to use system integrated with Steam Workshop. You can do anything you want in Tabletop Simulator. The possibilities are endless!
     Tabletop Simulator has it all. The base game includes 15 classics like Chess, Poker, Jigsaw Puzzles, Dominoes, and Mahjong. Additionally, there are thousands of community created content on the Workshop. If you’re the tabletop gaming type, we include an RPG Kit which has tilesets & furniture, as well as animated figurines that you can set up and battle with your friends, with even more options in the Chest. There’s even an option for Game Masters so they can control the table!', 0,0),
-    ('Fall Guys: Ultimate Knockout',38.00,(SELECT company_id FROM company WHERE company_name='Mediatonic'), 3, 'MS', 'https://www.youtube.com/embed/JBqernEHjUc', 
+    ('Fall Guys: Ultimate Knockout',38.00,(SELECT company_id FROM company WHERE company_name='Mediatonic'), 3, 'M', 'https://www.youtube.com/embed/Wj3dUvGLjNQ', 
     'Fall Guys: Ultimate Knockout flings hordes of contestants together online in a mad dash through round after round of escalating chaos until one victor remains! Battle bizarre obstacles, shove through unruly competitors, and overcome the unbending laws of physics as you stumble towards greatness. Leave your dignity at the door and prepare for hilarious failure in your quest to claim the crown!', 0,0),
-    ('Assassin''s Creed Odyssey',269.00,(SELECT company_id FROM company WHERE company_name='Ubisoft'), 18, 'S', 'https://www.youtube.com/embed/WTBbwgsyxvg', 
+    ('Assassin''s Creed Odyssey',269.00,(SELECT company_id FROM company WHERE company_name='Ubisoft'), 18, 'S', 'https://www.youtube.com/embed/s_SJZSAtLBA', 
     'Write your own epic odyssey and become a legendary Spartan hero. Forge your destiny in a world on the brink of tearing itself apart. Influence how history unfolds in an ever-changing world shaped by your choices.', 0,0),
-    ('Assassin''s Creed Syndicate',179.00,(SELECT company_id FROM company WHERE company_name='Ubisoft'), 18, 'S', 'https://www.youtube.com/embed/s_SJZSAtLBA', 
+    ('Assassin''s Creed Syndicate',179.00,(SELECT company_id FROM company WHERE company_name='Ubisoft'), 18, 'S', 'https://www.youtube.com/embed/WTBbwgsyxvg', 
     '1868 London. The Industrial Revolution. An age of invention and wealth, built on the backs of the working class. As gangster killer Jacob Frye, you recruit a gang to fight for justice on behalf of the oppressed working class. Lead the underworld to reclaim London in an adventure filled with action, intrigue and brutal combat. With Jacob as the leader, players can establish UK''s fiercest gang, the only force that can challenge the elite and defeat rival gangs to bring freedom to the oppressed folks. Enemy strongholds can be infiltrated by using an arsenal to dominate London''s underworld. From robbing trains to rescuing child workers, players will do everything they can to bring justice to London’s lawless streets.', 0,0),
     ('Shadow of the Tomb Raider',209.00,(SELECT company_id FROM company WHERE company_name='Square Enix'), 18, 'S', 'https://www.youtube.com/embed/r_WbvIDAcA4', 
     'Experience Lara Croft''s defining moment as she becomes the Tomb Raider. In Shadow of the Tomb Raider, Lara must master a deadly jungle, overcome terrifying tombs, and persevere through her darkest hour. As she races to save the world from a Maya apocalypse, Lara will ultimately be forged into the Tomb Raider she is destined to be.', 0,0),
-    ('Grand Theft Auto: San Andreas',18.00,(SELECT company_id FROM company WHERE company_name='Rockstar Games'), 18, 'S', 'https://www.youtube.com/embed/f_VBXRZuHTc', 
+    ('Grand Theft Auto: San Andreas',18.00,(SELECT company_id FROM company WHERE company_name='Rockstar Games'), 18, 'S', 'https://www.youtube.com/embed/2NNSNTYR12M', 
     'Five years ago Carl Johnson escaped from the pressures of life in Los Santos, San Andreas... a city tearing itself apart with gang trouble, drugs and corruption. Where filmstars and millionaires do their best to avoid the dealers and gangbangers. Now, it''s the early 90s. Carl''s got to go home. His mother has been murdered, his family has fallen apart and his childhood friends are all heading towards disaster. On his return to the neighborhood, a couple of corrupt cops frame him for homicide. CJ is forced on a journey that takes him across the entire state of San Andreas, to save his family and to take control of the streets.', 0,0),
-    ('Grand Theft Auto: Vice City',419.99,(SELECT company_id FROM company WHERE company_name='Rockstar Games'), 18, 'S', 'https://www.youtube.com/embed/2NNSNTYR12M', 
+    ('Grand Theft Auto: Vice City',419.99,(SELECT company_id FROM company WHERE company_name='Rockstar Games'), 18, 'S', 'https://www.youtube.com/embed/f_VBXRZuHTc', 
     'Welcome to Vice City. Welcome to the 1980s. Having just made it back onto the streets of Liberty City after a long stretch in maximum security, Tommy Vercetti is sent to Vice City by his old boss, Sonny Forelli. They were understandably nervous about his re-appearance in Liberty City, so a trip down south seemed like a good idea. But all does not go smoothly upon his arrival in the glamorous, hedonistic metropolis of Vice City. He''s set up and is left with no money and no merchandise. Sonny wants his money back, but the biker gangs, Cuban gangsters, and corrupt politicians stand in his way. Most of Vice City seems to want Tommy dead. His only answer is to fight back and take over the city himself. Vice City offers vehicular pleasures to suit every taste. For the speed enthusiast, there''s high-performance cars and motorbikes. For the sportsman, a powerboat or a golf buggy lets you enjoy the great outdoors. For those that need that sense of freedom and escape, why not charter a helicopter and see the beauty of Vice City from the air?', 0,0),
     ('Minecraft',86.00,(SELECT company_id FROM company WHERE company_name='Mojang AB'), 3, 'MS', 'https://www.youtube.com/embed/MmB9b5njVbA', 
     'The game involves players creating and destroying various types of blocks in a three dimensional environment. The player takes an avatar that can destroy or create blocks, forming fantastic structures, creations and artwork across the various multiplayer servers in multiple game modes.', 0,0),
@@ -492,13 +493,21 @@ def settings_page():
             query='''UPDATE likelist SET list_name=Null WHERE user_id=%s'''
             cursor.execute(query,(current_user.id,))
             connection.commit()
+        
+        elif 'delete_acc' in request.form:
+            userid=current_user.id
+            logout_user()
+            query='''DELETE FROM users WHERE user_id=%s'''
+            cursor.execute(query,(userid,))
+            connection.commit()
+            return redirect(url_for('home_page'))
             
         return redirect(url_for('user_page',username=current_user.username))
 def login_page():
     if request.method=="GET":
         return render_template("login.html")
     else:
-        if len(request.form['username']) and len(request.form['password']):
+        if 'username' in request.form and 'password' in request.form:
             username=request.form['username']
             password=request.form['password']
             query='''SELECT username FROM users WHERE username=%s'''
@@ -517,7 +526,7 @@ def signup_page():
     if request.method=="GET":
         return render_template("signup.html")
     else:
-        if len(request.form['name']) and len(request.form['username']) and len(request.form['email']) and len(request.form['year']) and len(request.form['password']):
+        if 'name' in request.form and 'username' in request.form and 'email' in request.form and 'year' in request.form and 'password' in request.form:
             name=request.form['name']
             username=request.form['username']
             email=request.form['email']
@@ -548,10 +557,12 @@ def logout():
 
 def pgames_page():
     db = current_app.config["db"]
+    genre_list=create_genrelist()
     if request.method=="GET":
         create_gamebase(db)
         games = db.get_gamelist()
-        return render_template("pgames.html",games=games, title="Most Popular Games")
+    
+        return render_template("pgames.html",games=games, genre_list=genre_list, title="Most Popular Games")
     elif request.method=="POST":
         mode="game_mode="
         price="("
@@ -630,16 +641,83 @@ def pgames_page():
         cursor.execute(query)
         record=cursor.fetchall()
         games=[]
-        counter=0
         for id in record:
             game=create_game(id[0])
-            counter+=1
-            games.append((counter,game))
+            games.append((game.id,game))
         games.sort(key=itemgetter(1),reverse=True)
-        return render_template("pgames.html",games=games,title="Games By Filter")
+        return render_template("pgames.html",games=games, genre_list=genre_list, title="Games By Filter")
 
 def warning_page():
     return render_template("warning.html")
+
+def new_game():
+    genres=create_genrelist()
+    if request.method=="GET":
+        return render_template("add_game.html", genres=genres)
+    else:
+        if 'name' in request.form and 'price' in request.form and 'company' in request.form and ('genre' in request.form or 'genre_add' in request.form) and 'age' in request.form and 'mode' in request.form and 'trailer' in request.form and 'info' in request.form:
+            query='''SELECT game_id FROM game WHERE game_name=%s'''
+            cursor.execute(query,(request.form['name'],))
+            if cursor.fetchone() is None:
+                name=request.form['name']
+                price=float(request.form['price'])
+                company=request.form['company']
+                age=int(request.form['age'])
+                if len(request.form.getlist('mode'))==2:
+                    mode='MS'
+                else:
+                    mode=request.form['mode']
+                trailer=request.form['trailer']
+                info=request.form['info']
+
+                query='''SELECT company_id FROM company WHERE company_name=%s'''
+                cursor.execute(query,(company,))
+                a=cursor.fetchone()
+
+                if a is None:
+                    query='''INSERT INTO company(company_name) VALUES (%s)'''
+                    cursor.execute(query,(company,))
+                    connection.commit()
+                    query='''SELECT company_id FROM company WHERE company_name=%s'''
+                    cursor.execute(query,(company,))
+                    company=cursor.fetchone()[0]
+                else:
+                    company=a
+                
+                query='''INSERT INTO game(game_name, price, company_id, age_rate, game_mode, trailer, game_info)
+                VALUES (%s, %s, %s, %s, %s, %s, %s)'''
+                cursor.execute(query,(name, price, company, age, mode, trailer, info))
+                connection.commit()
+                
+                if request.form.getlist('genre'):
+                    for i in request.form.getlist('genre'):
+                        query='''INSERT INTO game_genre_rel(game_id, genre_id) VALUES
+                        ((SELECT game_id FROM game WHERE game_name=%s),(SELECT genre_id FROM genres WHERE genre_name=%s))'''
+                        cursor.execute(query,(name, i))
+                        connection.commit()
+                if request.form['genre_add']:
+                    addlist=[x.strip() for x in request.form['genre_add'].split(',')]
+                    for i in addlist:
+                        if i not in genres:
+                            query='''INSERT INTO genres(genre_name) VALUES (%s)'''
+                            cursor.execute(query,(i,))
+                            connection.commit()
+                            query='''INSERT INTO game_genre_rel(game_id, genre_id)
+                            VALUES((SELECT game_id FROM game WHERE game_name=%s),(SELECT genre_id FROM genres WHERE genre_name=%s))'''
+                            cursor.execute(query,(name,i))
+                            connection.commit()
+                query='''SELECT game_id FROM game WHERE game_name=%s'''
+                cursor.execute(query,(name,))
+                gameid=cursor.fetchone()[0]
+                print(666666)
+                db = current_app.config["db"]
+                create_gamebase(db)
+                return redirect(url_for('game_page',gameid=gameid))
+            else:
+                return render_template("add_game.html", genres=genres)   
+        else:
+            flash('Please fill in all the blanks!')
+            return render_template("add_game.html", genres=genres)
 
 def user_page(username):
     query='''SELECT list_id, list_name FROM likelist inner join users ON likelist.user_id=users.user_id WHERE users.username=%s'''
@@ -683,18 +761,19 @@ def game_page(gameid):
         create_gamebase(db)
         game=db.get_game(gameid)
         return render_template("game.html", game=game, gameid=gameid, comments=comments, likes=likes)
-    elif 'comment' in request.form and 'commentsuser' in request.form:
+    elif 'delete_game' in request.form:
+        query='''DELETE FROM game WHERE game_id=%s'''
+        cursor.execute(query,(gameid,))
+        connection.commit()
+        return redirect(url_for('pgames_page'))
+    elif 'comment' in request.form:
         comment=request.form['comment']
-        commentuser=request.form['commentsuser']
-        if commentuser==current_user.username:
-            user_id='''SELECT user_id FROM users WHERE username=%s'''
-            cursor.execute(user_id,(commentuser, ))
-            user_id=cursor.fetchone()[0]
-            query='''INSERT INTO comments(content, game_id, user_id)
-            VALUES (%s, %s, %s)'''
-            cursor.execute(query,(comment, gameid, user_id))
-            connection.commit()
-            comments=create_comment_list(gameid)
+        commentuser=current_user.id
+        query='''INSERT INTO comments(content, game_id, user_id)
+        VALUES (%s, %s, %s)'''
+        cursor.execute(query,(comment, gameid, commentuser))
+        connection.commit()
+        comments=create_comment_list(gameid)
         return render_template("game.html", game=game, gameid=gameid, comments=comments, likes=likes)
     elif 'update' in request.form:
         update=request.form['update']
@@ -712,7 +791,7 @@ def game_page(gameid):
         create_comment_list(gameid)
         return redirect(url_for('game_page',gameid=gameid))
     
-    elif 'remove_game' in request.form:
+    elif 'remove_gamelist' in request.form:
         query='''DELETE FROM list_game_rel WHERE game_id=%s AND list_id=(SELECT list_id FROM likelist WHERE user_id=%s)'''
         cursor.execute(query,(gameid,current_user.id))
         connection.commit()
@@ -754,15 +833,15 @@ def update_dislike(id):
 def create_gamebase(db):
 
     db.clear_games()
-    number='''SELECT COUNT(*) FROM game;'''
+    number='''SELECT game_id FROM game;'''
     cursor.execute(number)
-    total_game_number=cursor.fetchone()
-    for game_id in range(1,total_game_number[0]+1):   
-        db.add_game(create_game(game_id))
+    total_game_number=cursor.fetchall()
+    for game_id in total_game_number:  
+        db.add_game(create_game(game_id[0]))
 
 def create_game(game_id):
     query='''SELECT * FROM game WHERE game_id=%s'''
-    cursor.execute(query,(game_id, ))
+    cursor.execute(query,(game_id,))
     record=cursor.fetchone()
     company='''SELECT company.company_name FROM game right join company on company.company_id=game.company_id WHERE game.game_id=%s'''
     cursor.execute(company,(game_id, ))
@@ -784,7 +863,7 @@ def get_user(username):
     query='''SELECT * FROM users WHERE username=%s'''
     cursor.execute(query, (username,))
     record=cursor.fetchone()
-    user=User(record[0],record[1],record[2],record[3],record[4],record[5],record[6])
+    user=User(record[0],record[1],record[2],record[3],record[4],record[5],record[6],record[7])
 
     return user
 
@@ -799,7 +878,7 @@ def create_comment_list(gameid):
         query='''SELECT * FROM users WHERE user_id=%s'''
         cursor.execute(query,(i[3], ))
         userdata=cursor.fetchone()
-        user=User(userdata[0],userdata[1],userdata[2],userdata[3],userdata[4],userdata[5],userdata[6])
+        user=User(userdata[0],userdata[1],userdata[2],userdata[3],userdata[4],userdata[5],userdata[6],userdata[7])
         comments.append((user,comment))
     return comments
 
@@ -819,3 +898,12 @@ def create_likelist(userid):
     for id in record:
         games.append(id[0])
     return games
+
+def create_genrelist():
+    query='''SELECT genre_name FROM genres ORDER BY genre_name'''
+    cursor.execute(query,)
+    genres=[]
+    for i in cursor.fetchall():
+        genres.append(i[0])
+    
+    return genres

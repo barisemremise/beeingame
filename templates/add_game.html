@@ -1,0 +1,80 @@
+{% extends 'toolbar.html' %}
+{% block title %}Add Game{% endblock %}
+{% block content %}
+<body>
+    <section class=" list hero is-fullheight">
+        <div style="margin:6% ; margin-top:5%; background-color: rgba(5,4,2,0.4);">
+            <div style="margin-top: 2%;">
+                <h1 id="h1" style="text-align: center;">Add Game</h1>
+            </div>
+
+            
+               <div class="setting" style="color: gold; margin-top:1%;">
+                <form action="{{ url_for('new_game') }}" method="POST">
+                    <h3 id="h3" style="color: gold; margin-top:1%;">Game Name</h3>
+                    <input class="input is-warning" type="text" name="name" placeholder="Game name" style="width:max-content;"><br>
+                    <h3 id="h3" style="color: gold; margin-top:1%;">Price</h3>
+                    <input class="input is-warning" type="number" step="0.01" name="price" placeholder="Price" style="width:max-content;">
+                    <h3 id="h3" style="color: gold; margin-top:1%;">Company</h3>
+                    <input class="input is-warning" type="text" name="company" placeholder="Developer company" style="width:max-content;">
+                    <h3 id="h3" style="color: gold; margin-top:1%;">Genres</h3>
+                    <div class="field">
+                        <div class="control">
+                        {% for genre in genres %}
+                          <label class="checkbox">
+                            <input type="checkbox" name="genre" value="{{ genre }}"> {{genre}} </label><br>
+                        {% endfor %}
+                          
+                        <input class="input is-warning" type="text" name="genre_add" placeholder="Another genres (e.g. Action,Adventure...)" style="width:20%;margin-top: 1%;">
+                        <p style="color: whitesmoke; margin-top: 1%;">If the genre of the game you want to add is not listed, you can enter it here.</p>
+                      </div>
+                    <h3 id="h3" style="color: gold; margin-top:1%;">Age Rate</h3>
+                    <div class="field">
+                        <div class="control is-large">
+                          <label class="radio">
+                            <input type="radio" name="age" value="3" checked> 3
+                          </label>
+                          <label class="radio">
+                            <input type="radio" name="age" value="7"> 7
+                          </label>
+                          <label class="radio">
+                            <input type="radio" name="age" value="12"> 12
+                          </label>
+                          <label class="radio">
+                            <input type="radio" name="age" value="16"> 16
+                          </label>
+                          <label class="radio">
+                            <input type="radio" name="age" value="18"> 18
+                          </label>
+                        </div>
+                      </div>
+                    <h3 id="h3" style="color: gold; margin-top:1%;">Modes</h3>
+                    <div class="field">
+                        <div class="control">
+                          <label class="checkbox">
+                            <input type="checkbox" name="mode" value="M"> Multiplayer
+                          </label>
+                          <label class="checkbox">
+                            <input type="checkbox" name="mode" value="S"> Singleplayer
+                          </label>
+                        </div>
+                      </div>
+                    <h3 id="h3" style="color: gold; margin-top:1%;">Trailer (Embedded)</h3>
+                    <input class="input is-warning" type="text" name="trailer" placeholder="e.g. https://www.youtube.com/embed/D0wpgyoj7uM" style="width:30%">
+                    <h3 id="h3" style="color: gold; margin-top:1%;">Game Info</h3>
+                    <div class="field">
+                        <p class="control" style="margin-right: 6%;">
+                          <textarea class="textarea is-warning" type="text" name="info" placeholder="Game info"></textarea>
+                        </p>
+                      </div>
+                      <button class="button is-warning is-outlined" type="submit">Add Game</a>
+                </form>
+               </div>
+        </div>
+        <footer style="text-align: center;">
+            <small style="color: goldenrod; ">&copy; 2020, Barış Emre Mişe</small>
+        </footer>
+    </section>
+</body>
+
+{% endblock %}

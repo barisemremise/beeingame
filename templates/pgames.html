@@ -15,18 +15,9 @@
                   <li>
                     <p style="color: whitesmoke; font-size: large;">Genres</p>
                     <ul>
-                      <li><input type="checkbox" name="genre" value="Action"><label class="filters">Action</label></li>
-                      <li><input type="checkbox" name="genre" value="Adventure"><label class="filters">Adventure</label></li>
-                      <li><input type="checkbox" name="genre" value="Battle Royal"><label class="filters">Battle Royal</label></li>
-                      <li><input type="checkbox" name="genre" value="Board Game"><label class="filters">Board Game</label></li>
-                      <li><input type="checkbox" name="genre" value="FPS"><label class="filters">FPS</label></li>
-                      <li><input type="checkbox" name="genre" value="MOBA"><label class="filters">MOBA</label></li>
-                      <li><input type="checkbox" name="genre" value="Racing"><label class="filters">Racing</label></li>
-                      <li><input type="checkbox" name="genre" value="RPG"><label class="filters">RPG</label></li>
-                      <li><input type="checkbox" name="genre" value="Simulation"><label class="filters">Simulation</label></li>
-                      <li><input type="checkbox" name="genre" value="Sports"><label class="filters">Sports</label></li>
-                      <li><input type="checkbox" name="genre" value="Strategy"><label class="filters">Strategy</label></li>
-                      <li><input type="checkbox" name="genre" value="Superhero"><label class="filters">Superhero</label></li>
+                      {% for genre in genre_list %}
+                      <li><input type="checkbox" name="genre" value="{{ genre }}"><label class="filters">{{ genre }}</label></li>
+                      {% endfor %}
                     </ul>
                   </li>
                   <li>

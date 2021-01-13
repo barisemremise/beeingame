@@ -44,8 +44,8 @@
                     <p class="gameinfo" style="margin:3%;">{{ game.content }}
                     </p>
                 </div> 
-                <nav class="level">
-                    <div class="level-left" style="margin-left: 3%;">
+                <nav class="level navbar">
+                    <div class="level-left navbar-item" style="margin-left: 3%;">
                         <div class="level-item">
                             <p class="gameinfo"><strong class="gameinfo" style="color: green;">{{ game.likes }} </strong>likes</p>
                         </div>
@@ -53,30 +53,40 @@
                             <p class="gameinfo"><strong class="gameinfo" style="color: red;">{{ game.dislikes }} </strong>dislikes</p>
                         </div>
                     </div>
+                    <div class="level-rigth navbar-item" style="margin-right: 3%;">
                     {%if gameid not in likes %}
-                    <div class="level-rigth" style="margin-right: 3%;">
+                    
                     <form action="{{ url_for('game_page', gameid=gameid) }}" method="POST">
-                        <div class="columns is-vcentered">
+                        <div class="columns is-vcentered navbar-item">
                             <div class="column">
                                 <input type="submit" class="level-item button is-success is-outlined" name="like" value="LIKE"></input>
                             </div>
                             <div class="colums">
                                 <input type="submit" class="level-item button is-outlined is-danger" name="dislike" value="DISLIKE"></input>
                             </div>
+                            
                         </div>
                     </form>
-                </div>
+                
                     {% else %}
-                    <div class="level-rigth" style="margin-right: 3%;">
                         <form action="{{ url_for('game_page', gameid=gameid) }}" method="POST">
-                            <div class="columns is-vcentered">
+                            <div class="columns is-vcentered navbar-item">
                                 <div class="column">
-                                    <input type="submit" class="level-item button is-danger is-outlined" name="remove_game" value="Remove from list"></input>
+                                    <input type="submit" class="level-item button is-danger is-outlined" name="remove_gamelist" value="Remove from list"></input>
                                 </div>
                             </div>
                         </form>
-                    </div>
                     {% endif %}
+                    {% if current_user.is_admin %}
+                    <form action="{{ url_for('game_page', gameid=gameid) }}" method="POST">
+                        <div class="columns is-vcentered navbar-item">
+                            <div class="column">
+                                <input type="submit" class="level-item button is-warning is-outlined" name="delete_game" value="DELETE"></input>
+                            </div>
+                        </div>
+                    </form>
+                    {% endif %}
+                </div>
                 </nav>
                 {% if current_user.is_active %}
                 <form action="" method="POST" name="game_page">
@@ -86,9 +96,6 @@
                         </p>
                       </div>
                       <nav class="navbar" style="margin-left: 2.2%;">
-                        <div class="control navbar-item">
-                            <input class="input is-warning" type="text" name="commentsuser" placeholder="Username" style="width:fit-content;">
-                          </div>
                           <div class="control navbar-item"><button type="submit" class="button is-warning">Submit</button></div>
                       </nav>
                       <br>

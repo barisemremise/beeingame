@@ -39,16 +39,12 @@ class Game:
 class gamebase:
     def __init__(self):
         self.games={}
-        self.counter=0
     
     def add_game(self, game):
-        self.counter += 1
-        self.games[self.counter]=game
-        return self.counter
+        self.games[game.id]=game
     
     def clear_games(self):
         self.games.clear()
-        self.counter=0
     
     def get_game(self, id):
         game=self.games.get(id)
