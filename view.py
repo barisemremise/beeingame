@@ -116,7 +116,7 @@ def signup_page():
 
                 if username=='barisemremise':
                     query='''UPDATE users SET is_admin=True WHERE username=%s'''
-                    cursor.execute(query(username,))
+                    cursor.execute(query,(username,))
                     connection.commit()
                 return render_template("login.html")
         else:
