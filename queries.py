@@ -427,6 +427,7 @@ def insert_db():
     ((SELECT game_id FROM game WHERE game_name='Injustice 2'), (SELECT genre_id FROM genres WHERE genre_name='Action')),
     ((SELECT game_id FROM game WHERE game_name='Injustice 2'), (SELECT genre_id FROM genres WHERE genre_name='Fighting')),
     ((SELECT game_id FROM game WHERE game_name='Injustice 2'), (SELECT genre_id FROM genres WHERE genre_name='Superhero'));'''
+
     cursor.execute(gamegenres)
     connection.commit()
     return "Yey"
