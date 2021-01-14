@@ -35,7 +35,7 @@ def create_app():
     lm.login_view = "login_page"
 
     db = gamebase()
-    #insert_db()
+    insert_db()
     create_gamebase(db)
     app.config["db"]=db
     return app
