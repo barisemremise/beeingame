@@ -1,5 +1,5 @@
 {% extends 'toolbar.html' %}
-{% block title %}User{% endblock %}
+{% block title %}{{user.username}}{% endblock %}
 {% block content %}
 <body>
     <section class=" list hero is-fullheight">
@@ -8,6 +8,14 @@
                 <h1 id="h1" style="text-align: center;">{{ user.username }}</h1>
             </div>
                         <table class="gametab" style="margin: auto; font-size: 300%;">
+                            <tr>
+                                <td>Role:&nbsp</td>
+                                {% if user.is_admin %}
+                                <td>Admin</td>
+                                {% else %}
+                                <td>User</td>
+                                {%endif%}
+                            </tr>
                             <tr>
                                 <td>Name:&nbsp</td>
                                 <td>{{ user.name }}</td>
@@ -25,6 +33,25 @@
                                 <td>{{ user.email }}</td>
                             </tr>
                         </table>
+                    {% if current_user.username != user.username %}
+                        {% if current_user.is_admin and not (user.is_admin) %}
+                    <form action="{{ url_for('user_page',username=user.username) }}" method="POST">
+                    <div class="columns is-centered">
+                        <div class="column is-1" style="margin-top: 2%;" >
+                            <button type="submit" name="madmin" class="button is-success">Assign Admin</a>
+                        </div>
+                    </div>
+                    </form>
+                    {% elif current_user.is_admin and user.is_admin and user.username!='barisemremise' %}
+                    <form action="{{ url_for('user_page',username=user.username) }}" method="POST">
+                        <div class="columns is-centered">
+                            <div class="column is-1" style="margin-top: 2%;" >
+                                <button type="submit" name="dadmin" class="button is-danger">Unassing Admin</a>
+                            </div>
+                        </div>
+                        </form>   
+                    {%endif%}
+                    {%endif%}   
                         {% if games %}
                             {% if listname %}
                             <h1 id="h1" style="text-align: center;color: gold;">{{ listname }}</h1>
@@ -34,16 +61,16 @@
                         <div class="content">
                             <ol id="gamelist" type="1" style="padding-left: 3%;">
                               {% for gameid, game in games %}
-                              {% if game.age %}
-                                <li style="color: gold;"><a class="a"href="{{ url_for('game_page', gameid=game.id) }}"  >{{ game.name }}</a></li>
+                              {% if game.age==18 and ((current_user.is_anonymous) or (current_user.age < 18 )) %}
+                                    <li style="color: gold;"><a class="a"href="{{ url_for('warning_page') }}">{{ game.name }}</a></li>
                                 {% else %}
-                                <li style="color: gold;"><a class="a"href="{{ url_for('warning_page') }}">{{ game.name }}</a></li>
+                                    <li style="color: gold;"><a class="a" href="{{ url_for('game_page', gameid=game.id) }}"  >{{ game.name }}</a></li>
                                 {% endif %}
                                 {% endfor %}
                               </ol>
                         </div>
                         {% endif %}
-                        </div>
+                        
         </div>
         <footer style="text-align: center;">
             <small style="color: goldenrod; ">&copy; 2020, Barış Emre Mişe</small>

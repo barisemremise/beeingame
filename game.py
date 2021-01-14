@@ -36,6 +36,15 @@ class Game:
         else:
             return False
 
+class Company:
+    def __init__(self, id, name, ceo_name=None, year=None, country=None, workers=None):
+        self.id=id
+        self.name=name
+        self.workers=workers
+        self.ceo_name=ceo_name
+        self.year=year
+        self.country=country
+
 class gamebase:
     def __init__(self):
         self.games={}

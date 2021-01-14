@@ -1,0 +1,26 @@
+{% extends 'toolbar.html' %}
+{% block title %}Companies{% endblock %}
+{% block content %}
+
+<body>
+    <section class=" list hero is-fullheight">
+        <div class="columns" style=" margin: 3%;margin-top: 3.5%;">  
+            <div class="transparent column" style="margin-left: 10%; margin-right:10% ;">
+                <h1 id="h1" style="text-align: center;">Companies</h1>
+                {% if complist %}
+            <div class="content">
+                <ol id="gamelist" type="1" style="padding-left: 3%; margin-left: 10%;">
+                  {% for company in complist %}
+                    <li style="color: gold;"><a class="a" href="{{ url_for('company_page', id=company.id) }}"  >{{ company.name }}</a></li>
+                {% endfor %}
+                  </ol>
+            </div>
+            {% endif %}
+            </div>
+        </div>
+        <footer style="text-align: center;">
+          <small style="color: goldenrod; ">&copy; 2020, Barış Emre Mişe</small>
+      </footer>
+    </section>
+</body>
+{% endblock %}

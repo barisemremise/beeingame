@@ -1,15 +1,16 @@
 {% extends 'toolbar.html' %}
-{% block title %}Popular Games{% endblock %}
+{% block title %}Search Results{% endblock %}
 {% block content %}
 
 <body>
     <section class=" list hero is-fullheight">
         <div class="columns" style=" margin: 3%;margin-top: 3.5%;">  
-            <div class="transparent column">
+            <div class="transparent column" style="margin-left: 6%; margin-right:6% ;">
                 <h1 id="h1" style="text-align: center;">{{ title }}</h1>
                 {% if games %}
             <div class="content">
-                <ol id="gamelist" type="1" style="padding-left: 3%;">
+              <h3 id="h3" style="color: gold;">Games</h3>
+                <ol id="gamelist" type="1" style="padding-left: 3%; margin-left: 10%;">
                   {% for game in games %}
                   {% if game.age==18 and current_user.is_anonymous %}
                   <li style="color: gold;"><a class="a"href="{{ url_for('warning_page') }}">{{ game.name }}</a></li>
@@ -19,7 +20,18 @@
                     {% endfor %}
                   </ol>
             </div>
-            {% else %}
+            {%endif%}
+            {% if companies %}
+            <div class="content">
+              <h3 id="h3" style="color: gold;">Companies</h3>
+              <ol id="gamelist" type="1" style="padding-left: 3%; margin-left: 10%;">
+                {% for company in companies %}
+                  <li style="color: gold;"><a class="a" href="{{ url_for('company_page', id=company.id) }}"  >{{ company.name }}</a></li>
+              {% endfor %}
+                </ol>
+          </div>
+            {%endif%}
+            {% if not games and not companies %}
             <h3 style="color: white;font-size: xx-large;">Game not found :(</h3>
             {% endif %}
             </div>

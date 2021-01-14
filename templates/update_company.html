@@ -1,0 +1,60 @@
+{% extends 'toolbar.html' %}
+{% block title %}Settings{% endblock %}
+{% block content %}
+<body>
+    <section class=" list hero is-fullheight">
+        <div style="margin:10% ; margin-top:5%; margin-bottom: 5%; background-color: rgba(5,4,2,0.4);">
+            <div style="margin-top: 2%;">
+                <h1 id="h1" style="text-align: center;">Update {{company.name}}</h1>
+            </div>
+            <div>
+            <h3 class="settingh3">{{ company.name }}</h3>
+                <nav class="navbar setting">
+                <form action="{{ url_for('updatecom_page',id=company.id) }}" method="POST">
+                  <input class="input is-warning" type="text" name="name" placeholder="Change company name" style="width:fit-content;">
+                    <button class="button is-success is-outlined" type="submit">Change</a>
+              </form>
+            </nav>
+            <h3 class="settingh3">CEO: {{company.ceo_name}}</h3>
+                <nav class="navbar setting">
+                <form action="{{ url_for('updatecom_page',id=company.id) }}" method="POST">
+                  <input class="input is-warning" type="text" name="ceo" placeholder="Change CEO" style="width:fit-content;">
+                    <button class="button is-success is-outlined" type="submit">Change</a>
+              </form>
+            </nav>
+            <h3 class="settingh3">Year of foundation: {{ company.year }}</h3>
+                <nav class="navbar setting">
+                <form action="{{ url_for('updatecom_page',id=company.id) }}" method="POST">
+                  <input class="input is-warning" type="number" name="year" placeholder="Change year" style="width:fit-content;">
+                    <button class="button is-success is-outlined" type="submit">Change</a>
+              </form>
+            </nav>
+            <h3 class="settingh3">Country of foundation: {{ company.country }}</h3>
+                <nav class="navbar setting">
+                <form action="{{ url_for('updatecom_page',id=company.id) }}" method="POST">
+                  <input class="input is-warning" type="text" name="country" placeholder="Change country" style="width:fit-content;">
+                    <button class="button is-success is-outlined" type="submit">Change</a>
+              </form>
+            </nav>
+            <h3 class="settingh3">Number of workers: {{ company.workers }}</h3>
+                <nav class="navbar setting">
+                <form action="{{ url_for('updatecom_page',id=company.id) }}" method="POST">
+                  <input class="input is-warning" type="number" name="workers" placeholder="Change workers" style="width:fit-content;">
+                    <button class="button is-success is-outlined" type="submit">Change</a>
+              </form>
+            </nav>
+              <div class="navbar setting"></nav>
+              <form action="{{ url_for('updatecom_page',id=company.id) }}" method="POST">
+                <button class="button is-danger is-outlined is-large" type="submit" name="delete_com">Delete Company</a>
+            </form>
+          </div>
+          <p style="margin:2%;margin-left: 6%;color: whitesmoke; font-size: larger;">!!! If you delete a company, all games belonging to it are also deleted.</p>
+            </div> 
+        </div>
+        <footer style="text-align: center;">
+            <small style="color: goldenrod; ">&copy; 2020, Barış Emre Mişe</small>
+        </footer>
+    </section>
+</body>
+
+{% endblock %}

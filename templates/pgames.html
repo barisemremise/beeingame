@@ -30,9 +30,9 @@
                   <li>
                     <p style="color: whitesmoke; font-size: large;">Price</p>
                     <ul>
-                      <li><input type="checkbox" name="price" value="1"><label class="filters">0 - 50 TL</label></li>
-                      <li><input type="checkbox" name="price" value="2"><label class="filters">50 - 100 TL</label></li>
-                      <li><input type="checkbox" name="price" value="3"><label class="filters">100 TL and above</label></li>
+                      <li><input type="checkbox" name="price" value="0-50"><label class="filters">0 - 50 TL</label></li>
+                      <li><input type="checkbox" name="price" value="50-100"><label class="filters">50 - 100 TL</label></li>
+                      <li><input type="checkbox" name="price" value="above"><label class="filters">100 TL and above</label></li>
                     </ul>
                   </li>
                   <li>
@@ -53,7 +53,7 @@
             </aside>
           </div>
             
-            <div class="transparent column">
+            <div class="transparent column" style="margin-top: 0.5%;">
                 <h1 id="h1" style="text-align: center;">{{ title }}</h1>
                 {% if games %}
             <div class="content">

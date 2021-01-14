@@ -1,16 +1,11 @@
-from flask import Flask
-from flask import current_app
 from flask_login import UserMixin
-import datetime
-
-x = datetime.datetime.now()
 
 class User(UserMixin):
-    def __init__(self, id, username, name, birth, gender, email, password, is_admin):
+    def __init__(self, id, username, name, age, gender, email, password, is_admin):
         self.username = username
         self.id=id
         self.name=name
-        self.age=x.year-birth
+        self.age=int(age.days/365.2425)
         self.gender=gender
         self.email=email
         self.password = password

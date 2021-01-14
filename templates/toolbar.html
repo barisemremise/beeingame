@@ -10,7 +10,7 @@
       <div>
         <header>
               <nav class="navbar is-fixed-top" aria-label="main navigation" style="background: rgb(46,7,78);
-              background: linear-gradient(90deg, rgba(46,7,78,1) 18%, rgba(0,0,0,1) 100%); ">
+              background: linear-gradient(90deg, rgba(46,7,78,1) 18%, rgba(0,0,0,1) 100%);">
                 <div class="navbar-brand">
                     <figure class="image is-64x64">
                         <img class="is-rounded" src="/static/photos/logo.png">
@@ -21,12 +21,15 @@
                   <span class="navbar-item">
                     <a class="button is-warning is-outlined" href="{{ url_for('pgames_page') }}">Popular Games</a>
                   </span>
+                  <span class="navbar-item">
+                    <a class="button is-warning is-outlined" href="{{ url_for('companies_page') }}">Companies</a>
+                  </span>
                   
                    <span class="navbar-item">
                     <form action="{{ url_for('search_page') }}" method="POST">
                     <div class="field has-addons">
                       <div class="control">
-                        <input class="input is-warning" name="search" type="text" placeholder="Find a game">
+                        <input class="input is-warning" name="search" type="text" placeholder="Find game or company">
                       </div>
                       <div class="control">
                         <button type="submit"class="button is-warning is-outlined">Search</button>
