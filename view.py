@@ -191,7 +191,7 @@ def pgames_page():
                     query=query+" INTERSECT "
             query=query+")"
         if query!="(":
-            query=query+" ORDER BY game.likes DESC, game.dislikes ASC, game.game_name ASC"
+            query=query+" ORDER BY likes DESC, dislikes ASC, game_name ASC"
             cursor.execute(query)
             record=cursor.fetchall()
             games=[]
