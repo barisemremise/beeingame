@@ -10,7 +10,9 @@
                         <table class="gametab" style="margin: auto; font-size: 300%;">
                             <tr>
                                 <td>Role:&nbsp</td>
-                                {% if user.is_admin %}
+                                {% if user.username=='barisemremise' %}
+                                <td>Founder of Beeingame</td>
+                                {% elif user.is_admin %}
                                 <td>Admin</td>
                                 {% else %}
                                 <td>User</td>
