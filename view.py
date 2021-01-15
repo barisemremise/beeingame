@@ -153,7 +153,7 @@ def pgames_page():
         query="("
         if 'mode' in request.form and len(request.form.getlist('mode'))==1:
             mode=request.form['mode']
-            query=query+"SELECT game_id FROM game WHERE game_mode='MS' UNION SELECT game_id FROM game WHERE game_mode='"+mode+"')"
+            query=query+"SELECT game.game_id, game.likes, game.dislikes, game.game_name FROM game WHERE game_mode='MS' UNION SELECT game.game_id, game.likes, game.dislikes, game.game_name FROM game WHERE game_mode='"+mode+"')"
 
         if 'price' in request.form and len(request.form.getlist('price'))<3:
             pricenum=len(request.form.getlist('price'))
@@ -161,11 +161,11 @@ def pgames_page():
                 query=query+" INTERSECT ("
             for i in request.form.getlist('price'):
                 if i=="above":
-                    query=query+"SELECT game_id FROM game WHERE price>=100"
+                    query=query+"SELECT game.game_id, game.likes, game.dislikes, game.game_name FROM game WHERE price>=100"
                 elif i=="0-50":
-                    query=query+"SELECT game_id FROM game WHERE price<50"
+                    query=query+"SELECT game.game_id, game.likes, game.dislikes, game.game_name FROM game WHERE price<50"
                 else:
-                    query=query+"SELECT game_id FROM game WHERE price>=50 AND price<100"
+                    query=query+"SELECT game.game_id, game.likes, game.dislikes, game.game_name FROM game WHERE price>=50 AND price<100"
                 pricenum-=1
                 if pricenum:
                     query=query+" UNION "
@@ -175,7 +175,7 @@ def pgames_page():
                 query=query+" INTERSECT ("
             agenum=len(request.form.getlist('age'))
             for i in request.form.getlist('age'):
-                query=query+"SELECT game_id FROM game WHERE age_rate="+i
+                query=query+"SELECT game.game_id, game.likes, game.dislikes, game.game_name FROM game WHERE age_rate="+i
                 agenum-=1
                 if agenum:
                     query=query+" UNION "
@@ -185,7 +185,7 @@ def pgames_page():
                 query=query+" INTERSECT ("
             genrenum=len(request.form.getlist('genre'))
             for i in request.form.getlist('genre'):
-                query=query+"SELECT game.game_id FROM game_genre_rel INNER JOIN genres ON genres.genre_id=game_genre_rel.genre_id INNER JOIN game ON game.game_id =game_genre_rel.game_id WHERE genres.genre_name='"+i+"'"
+                query=query+"SELECT game.game_id, game.likes, game.dislikes, game.game_name FROM game_genre_rel INNER JOIN genres ON genres.genre_id=game_genre_rel.genre_id INNER JOIN game ON game.game_id =game_genre_rel.game_id WHERE genres.genre_name='"+i+"'"
                 genrenum-=1
                 if genrenum:
                     query=query+" INTERSECT "
