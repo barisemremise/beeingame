@@ -74,20 +74,28 @@ def login_page():
     if request.method=="GET":
         return render_template("login.html")
     else:
+        message=""
         if 'username' in request.form and 'password' in request.form:
             username=request.form['username']
             password=request.form['password']
-            query='''SELECT username FROM users WHERE username=%s'''
-            cursor.execute(query, (username,))
-            usercontrol=cursor.fetchone()
-            if usercontrol is not None:
-                user=get_user(username)
-                if hasher.verify(password, user.password):
-                    login_user(user)
-                    flash("You have logged in.")
-                    next_page = request.args.get("next", url_for("home_page"))
-                    return redirect(next_page)
-        return redirect(url_for('login_page'))
+            if username and password:
+                query='''SELECT username FROM users WHERE username=%s'''
+                cursor.execute(query, (username,))
+                usercontrol=cursor.fetchone()
+                if usercontrol is not None:
+                    user=get_user(username)
+                    if hasher.verify(password, user.password):
+                        login_user(user)
+                        flash("You have logged in.")
+                        next_page = request.args.get("next", url_for("home_page"))
+                        return redirect(next_page)
+                    else:
+                        message="Wrong password!"
+                else:
+                    message="Wrong username!"
+            else:
+                message="Fill in required fields!"
+        return render_template("login.html",message=message)
 
 def signup_page():
     if request.method=="GET":
@@ -100,27 +108,33 @@ def signup_page():
             birtyear=request.form['year']
             gender=request.form['gender']
             password=hash_password(request.form['password'])
-            control='''SELECT username FROM users WHERE username=%s OR email=%s'''
-            cursor.execute(control,(username, email))
-            user_=cursor.fetchone()
-            if user_:
-                return redirect(url_for('signup_page'))
-            else:
-                query='''INSERT INTO users(username, name, birth, gender, email, user_password)
-                VALUES (%s, %s, %s, %s, %s, %s)'''
-                cursor.execute(query,(username, name, birtyear, gender, email, password))
-                connection.commit()
-                query='''INSERT INTO likelist(user_id) VALUES ((SELECT user_id FROM users WHERE username=%s))'''
-                cursor.execute(query,(username,))
-                connection.commit()
-
-                if username=='barisemremise':
-                    query='''UPDATE users SET is_admin=True WHERE username=%s'''
-                    cursor.execute(query(username,))
+            if name and username and email and birtyear and gender and password:
+                control='''SELECT username FROM users WHERE username=%s OR email=%s'''
+                cursor.execute(control,(username, email))
+                user_=cursor.fetchone()
+                if user_:
+                    message="Username is not available!"
+                    return render_template('signup.html',message=message)
+                else:
+                    query='''INSERT INTO users(username, name, birth, gender, email, user_password)
+                    VALUES (%s, %s, %s, %s, %s, %s)'''
+                    cursor.execute(query,(username, name, birtyear, gender, email, password))
                     connection.commit()
-                return render_template("login.html")
+                    query='''INSERT INTO likelist(user_id) VALUES ((SELECT user_id FROM users WHERE username=%s))'''
+                    cursor.execute(query,(username,))
+                    connection.commit()
+
+                    if username=='barisemremise':
+                        query='''UPDATE users SET is_admin=True WHERE username=%s'''
+                        cursor.execute(query(username,))
+                        connection.commit()
+                    return render_template("login.html")
+            else:
+                message="Fill in required fields!"
+                return render_template("signup.html",message=message)
         else:
-            return redirect(url_for('signup_page'))
+            message="Fill in required fields!"
+            return render_template("signup.html",message=message)
 
 def logout():
     logout_user()
@@ -171,12 +185,13 @@ def pgames_page():
                 query=query+" INTERSECT ("
             genrenum=len(request.form.getlist('genre'))
             for i in request.form.getlist('genre'):
-                query=query+"SELECT game_genre_rel.game_id FROM game_genre_rel INNER JOIN genres ON genres.genre_id=game_genre_rel.genre_id WHERE genres.genre_name='"+i+"'"
+                query=query+"SELECT game.game_id FROM game_genre_rel INNER JOIN genres ON genres.genre_id=game_genre_rel.genre_id INNER JOIN game ON game.game_id =game_genre_rel.game_id WHERE genres.genre_name='"+i+"'"
                 genrenum-=1
                 if genrenum:
                     query=query+" INTERSECT "
             query=query+")"
         if query!="(":
+            query=query+" ORDER BY likes DESC, dislikes ASC, game_name ASC"
             cursor.execute(query)
             record=cursor.fetchall()
             games=[]
@@ -254,10 +269,11 @@ def new_game():
                 create_gamebase(db)
                 return redirect(url_for('game_page',gameid=gameid))
             else:
-                return render_template("add_game.html", genres=genres)   
+                message="Game already exists!"
+                return render_template("add_game.html", genres=genres,message=message)   
         else:
-            flash('Please fill in all the blanks!')
-            return render_template("add_game.html", genres=genres)
+            message="Fill in required fields!"
+            return render_template("add_game.html", genres=genres,message=message)
 
 def user_page(username):
     query='''SELECT list_id, list_name FROM likelist inner join users ON likelist.user_id=users.user_id WHERE users.username=%s'''

@@ -12,6 +12,9 @@
                 </figure> 
                   <h3 style="font-size: xx-large; margin: auto; color: black;">Login to Beeingame!</h3>
                   <br>
+                  {% if message %}
+                  <p class="error">{{message}}</p><br>
+                  {%endif%}
                   <form action="{{ url_for('login_page') }}" method="POST">
                     <div class="field">
                         <div class="control">

@@ -80,3 +80,8 @@
     margin-left: 6%;
     margin-bottom:1%;
 }
+
+.error{
+    color:red;
+    font-size: large;
+}

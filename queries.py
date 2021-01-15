@@ -271,6 +271,8 @@ def insert_db():
     'Everybody wants to rule the world! Now you can play the classic game of Hasbro''s RISK online.', 0,0),
     ('F1 2020',92.00,(SELECT company_id FROM company WHERE company_name='Codemasters'), 3, 'MS', 'https://www.youtube.com/embed/T58oOjZW-BE', 
     'F1® 2020 is the most comprehensive F1® game yet, putting players firmly in the driving seat as they race against the best drivers in the world. For the first time, players can create their own F1® team by creating a driver, then choosing a sponsor, an engine supplier, hiring a teammate and competing as the 11th team on the grid. Build facilities, develop the team over time and drive to the top.', 0,0),
+    ('STAR WARS: Squadrons',279.99,(SELECT company_id FROM company WHERE company_name='Electronic Arts'), 12, 'MS', 'https://www.youtube.com/embed/nCcfJ9uEwvs', 
+    'Master the art of starfighter combat in the authentic piloting experience STAR WARS™: Squadrons. Buckle up and feel the adrenaline of first-person, multiplayer space dogfights alongside your squadron. Pilots who enlist will step into the cockpits of starfighters from both the New Republic and Imperial fleets and fight in strategic 5v5 space battles. Modify your starfighter, and adjust the composition of your squadron to suit varying playstyles and crush the opposition. Pilots will triumph as a team and complete tactical objectives across known and never-before-seen battlefields, including the gas giant of Yavin Prime and the shattered moon of Galitan. Take control of starfighters such as the X-wing and TIE fighter. Customize loadouts and cosmetics. Divert power between weapons, shields, and engines while immersing yourself in the cockpit. In addition, players will have the option to play the entirety of the game in virtual reality (VR)!', 0,0),
     ('Tabletop Simulator',31.00,(SELECT company_id FROM company WHERE company_name='Berserk Games'), 7, 'M', 'https://www.youtube.com/embed/JBqernEHjUc', 
     'Create your own original games, import custom assets, automate games with scripting, set up complete RPG dungeons, manipulate the physics, create hinges & joints, and of course flip the table when you are losing the game. All with an easy to use system integrated with Steam Workshop. You can do anything you want in Tabletop Simulator. The possibilities are endless!
     Tabletop Simulator has it all. The base game includes 15 classics like Chess, Poker, Jigsaw Puzzles, Dominoes, and Mahjong. Additionally, there are thousands of community created content on the Workshop. If you’re the tabletop gaming type, we include an RPG Kit which has tilesets & furniture, as well as animated figurines that you can set up and battle with your friends, with even more options in the Chest. There’s even an option for Game Masters so they can control the table!', 0,0),
@@ -303,7 +305,9 @@ def insert_db():
     However, soon reports of a grisly "cannibal virus" begin to surface, and vicious dogs begin roaming the streets. With the viral plague spreading through the town and to her very doorstep, Jill is determined to survive.
     However, unbeknownst to Jill, an extremely powerful pursuer has already been dispatched to eliminate her.', 0,0),
     ('Injustice 2',77.00,(SELECT company_id FROM company WHERE company_name='NetherRealm Studios'), 16, 'MS', 'https://www.youtube.com/embed/oDav-JfidL0', 
-    'Every battle defines you.Power up and build the ultimate version of your favorite DC legends in INJUSTICE 2. With a massive selection of DC Super Heroes and Super-Villains, INJUSTICE 2 allows you to equip every iconic character with unique and powerful gear earned throughout the game. Experience an unprecedented level of control over how your favorite characters look, how they fight, and how they develop across a huge variety of game modes. This is your super Hero. Your Journey. Your Injustice.', 0,0);
+    'Every battle defines you.Power up and build the ultimate version of your favorite DC legends in INJUSTICE 2. With a massive selection of DC Super Heroes and Super-Villains, INJUSTICE 2 allows you to equip every iconic character with unique and powerful gear earned throughout the game. Experience an unprecedented level of control over how your favorite characters look, how they fight, and how they develop across a huge variety of game modes. This is your super Hero. Your Journey. Your Injustice.', 0,0),
+    ('Rocket League',0,(SELECT company_id FROM company WHERE company_name='Psyonix LLC'), 3, 'M', 'https://www.youtube.com/embed/OmMF9EDbmQQ', 
+    'Soccer meets driving once again in this physics-based multiplayer-focused sequel to Supersonic Acrobatic Rocket-Powered Battle-Cars. Choose a variety of high-flying vehicles equipped with huge rocket boosters to score aerial goals and pull-off game-changing saves.', 0,0);
     '''
     cursor.execute(games)
     connection.commit()
@@ -390,6 +394,9 @@ def insert_db():
     ((SELECT game_id FROM game WHERE game_name='F1 2020'), (SELECT genre_id FROM genres WHERE genre_name='Racing')),
     ((SELECT game_id FROM game WHERE game_name='F1 2020'), (SELECT genre_id FROM genres WHERE genre_name='Driving')),
     ((SELECT game_id FROM game WHERE game_name='F1 2020'), (SELECT genre_id FROM genres WHERE genre_name='Simulation')),
+    ((SELECT game_id FROM game WHERE game_name='STAR WARS: Squadrons'), (SELECT genre_id FROM genres WHERE genre_name='Action')),
+    ((SELECT game_id FROM game WHERE game_name='STAR WARS: Squadrons'), (SELECT genre_id FROM genres WHERE genre_name='Flight')),
+    ((SELECT game_id FROM game WHERE game_name='STAR WARS: Squadrons'), (SELECT genre_id FROM genres WHERE genre_name='VR')),
     ((SELECT game_id FROM game WHERE game_name='Tabletop Simulator'), (SELECT genre_id FROM genres WHERE genre_name='Board Game')),
     ((SELECT game_id FROM game WHERE game_name='Tabletop Simulator'), (SELECT genre_id FROM genres WHERE genre_name='Simulation')),
     ((SELECT game_id FROM game WHERE game_name='Tabletop Simulator'), (SELECT genre_id FROM genres WHERE genre_name='VR')),
@@ -426,8 +433,9 @@ def insert_db():
     ((SELECT game_id FROM game WHERE game_name='Resident Evil 3'), (SELECT genre_id FROM genres WHERE genre_name='Horror')),
     ((SELECT game_id FROM game WHERE game_name='Injustice 2'), (SELECT genre_id FROM genres WHERE genre_name='Action')),
     ((SELECT game_id FROM game WHERE game_name='Injustice 2'), (SELECT genre_id FROM genres WHERE genre_name='Fighting')),
-    ((SELECT game_id FROM game WHERE game_name='Injustice 2'), (SELECT genre_id FROM genres WHERE genre_name='Superhero'));'''
-
+    ((SELECT game_id FROM game WHERE game_name='Injustice 2'), (SELECT genre_id FROM genres WHERE genre_name='Superhero')),
+    ((SELECT game_id FROM game WHERE game_name='Rocket League'), (SELECT genre_id FROM genres WHERE genre_name='Racing')),
+    ((SELECT game_id FROM game WHERE game_name='Rocket League'), (SELECT genre_id FROM genres WHERE genre_name='Sports'));'''
     cursor.execute(gamegenres)
     connection.commit()
     return "Yey"
@@ -577,4 +585,3 @@ def update_admin(username,update):
     print(username,update)
     cursor.execute(query,(update,username))
     connection.commit()
-

@@ -10,6 +10,9 @@
 
             
                <div class="setting" style="color: gold; margin-top:1%;">
+                {% if message %}
+                <p class="error" style="font-size: larger;">{{message}}</p>
+                {%endif%}
                 <form action="{{ url_for('new_game') }}" method="POST">
                     <h3 id="h3" style="color: gold; margin-top:1%;">Game Name</h3>
                     <input class="input is-warning" type="text" name="name" placeholder="Game name" style="width:max-content;"><br>

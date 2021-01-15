@@ -12,7 +12,7 @@
               <h3 id="h3" style="color: gold;">Games</h3>
                 <ol id="gamelist" type="1" style="padding-left: 3%; margin-left: 10%;">
                   {% for game in games %}
-                  {% if game.age==18 and current_user.is_anonymous %}
+                  {% if game.age==18 and ((current_user.is_anonymous) or (current_user.age < 18 )) %}
                   <li style="color: gold;"><a class="a"href="{{ url_for('warning_page') }}">{{ game.name }}</a></li>
                     {% else %}
                     <li style="color: gold;"><a class="a" href="{{ url_for('game_page', gameid=game.id) }}"  >{{ game.name }}</a></li>
