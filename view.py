@@ -266,7 +266,7 @@ def new_game():
                 cursor.execute(query,(name,))
                 gameid=cursor.fetchone()[0]
                 db = current_app.config["db"]
-                create_gamebase(db)
+                db.add_game(create_game(gameid))
                 return redirect(url_for('game_page',gameid=gameid))
             else:
                 message="Game already exists!"
