@@ -53,9 +53,9 @@
                             <p class="gameinfo"><strong class="gameinfo" style="color: red;">{{ game.dislikes }} </strong>dislikes</p>
                         </div>
                     </div>
+                    {% if not current_user.is_anonymous %}
                     <div class="level-rigth navbar-item" style="margin-right: 3%;">
-                    {%if gameid not in likes %}
-                    
+                        {%if gameid not in likes %}
                     <form action="{{ url_for('game_page', gameid=gameid) }}" method="POST">
                         <div class="columns is-vcentered navbar-item">
                             <div class="column">
@@ -67,7 +67,6 @@
                             
                         </div>
                     </form>
-                
                     {% else %}
                         <form action="{{ url_for('game_page', gameid=gameid) }}" method="POST">
                             <div class="columns is-vcentered navbar-item">
@@ -87,6 +86,7 @@
                     </form>
                     {% endif %}
                 </div>
+                {% endif %}
                 </nav>
                 {% if current_user.is_active %}
                 <form action="" method="POST" name="game_page">
@@ -129,7 +129,7 @@
                 </ul>
                 {% endif %}
                 {% else %}
-                <h3 class="title is-3" style="margin-left: 3%; color: gold;">Sign up to be able to write and view comments.</h4>
+                <h3 class="title is-3" style="margin-left: 3%; color: gold;">Sign up to be able to write and view comments and like or dislike games.</h4>
                     <br>
                 {% endif %}
             </div>
