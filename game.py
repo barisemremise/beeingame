@@ -56,7 +56,7 @@ class gamebase:
         self.games.clear()
     
     def delete_game(self,id):
-        del games[id]
+        del self.games[id]
     
     def get_game(self, id):
         game=self.games.get(id)
