@@ -367,7 +367,7 @@ def game_page(gameid):
         db.delete_game(gameid)
         game=create_game(gameid)
         db.add_game(game)
-        return render_template("game.html", game=game, gameid=gameid, comments=comments, likes=likes)
+        return redirect(url_for('game_page',gameid=gameid))
     if game is None:
         abort(404)
     return render_template("game.html", game=game, gameid=gameid, comments=comments, likes=likes)
