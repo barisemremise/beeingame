@@ -323,7 +323,8 @@ def game_page(gameid):
         elif 'dislike' in request.form:
             update_dislike(game.id)
         db.delete_game(gameid)
-        db.add_game(create_game(gameid))
+        game=create_game(gameid)
+        db.add_game(game)
         return render_template("game.html", game=game, gameid=gameid, comments=comments, likes=likes)
     elif 'delete_game' in request.form:
         delete_game(gameid)
