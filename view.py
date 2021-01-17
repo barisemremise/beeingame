@@ -365,8 +365,9 @@ def game_page(gameid):
         cursor.execute(query,(gameid,))
         connection.commit()
         db.delete_game(gameid)
-        db.add_game(create_game(gameid))
-        return redirect(url_for('user_page',username=current_user.username))
+        game=create_game(gameid)
+        db.add_game(game)
+        return render_template("game.html", game=game, gameid=gameid, comments=comments, likes=likes)
     if game is None:
         abort(404)
     return render_template("game.html", game=game, gameid=gameid, comments=comments, likes=likes)
