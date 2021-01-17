@@ -322,8 +322,8 @@ def game_page(gameid):
                 likes=[]
         elif 'dislike' in request.form:
             update_dislike(game.id)
-        create_gamebase(db)
-        game=db.get_game(gameid)
+        db.delete_game(gameid)
+        db.add_game(create_game(gameid))
         return render_template("game.html", game=game, gameid=gameid, comments=comments, likes=likes)
     elif 'delete_game' in request.form:
         delete_game(gameid)
@@ -363,6 +363,8 @@ def game_page(gameid):
         query='''UPDATE game SET likes=likes-1 WHERE game_id=%s'''
         cursor.execute(query,(gameid,))
         connection.commit()
+        db.delete_game(gameid)
+        db.add_game(create_game(gameid))
         return redirect(url_for('user_page',username=current_user.username))
     if game is None:
         abort(404)
