@@ -343,7 +343,7 @@ def game_page(gameid):
     elif 'update' in request.form:
         update=request.form['update']
         commentid=request.form['commentup']
-        if update is not None:
+        if update !="":
             query='''UPDATE comments SET content=%s WHERE comment_id=%s'''
             cursor.execute(query,(update,commentid))
             connection.commit()
