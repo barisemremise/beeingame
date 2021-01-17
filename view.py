@@ -343,11 +343,11 @@ def game_page(gameid):
     elif 'update' in request.form:
         update=request.form['update']
         commentid=request.form['commentup']
-
-        query='''UPDATE comments SET content=%s WHERE comment_id=%s'''
-        cursor.execute(query,(update,commentid))
-        connection.commit()
-        create_comment_list(gameid)
+        if update is not None:
+            query='''UPDATE comments SET content=%s WHERE comment_id=%s'''
+            cursor.execute(query,(update,commentid))
+            connection.commit()
+            create_comment_list(gameid)
         return redirect(url_for('game_page',gameid=gameid))
     elif 'delete' in request.form:
         query='''DELETE FROM comments WHERE comment_id=%s'''
