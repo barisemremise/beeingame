@@ -4,6 +4,7 @@ from flask import render_template, current_app, abort, redirect
 from flask.globals import request
 from flask_login import current_user, login_user, logout_user
 from passlib.hash import pbkdf2_sha256 as hasher
+import time
 from operator import itemgetter
 from queries import *
 
@@ -264,6 +265,7 @@ def new_game():
                             connection.commit()
                 db = current_app.config["db"]
                 db.add_game(create_game(gameid))
+                time.sleep(5)
                 return redirect(url_for('game_page',gameid=gameid))
             else:
                 message="Game already exists!"
