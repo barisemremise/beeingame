@@ -266,7 +266,7 @@ def new_game():
                 db = current_app.config["db"]
                 game=create_game(gameid)
                 db.add_game(game)
-                return render_template("game.html", game=game, gameid=gameid)
+                return redirect(url_for('game_page',gameid=gameid))
             else:
                 message="Game already exists!"
                 return render_template("add_game.html", genres=genres,message=message)   
