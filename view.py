@@ -241,10 +241,10 @@ def new_game():
                     company=a
                 
                 query='''INSERT INTO game(game_name, price, company_id, age_rate, game_mode, trailer, game_info)
-                VALUES (%s, %s, %s, %s, %s, %s, %s)'''
+                VALUES (%s, %s, %s, %s, %s, %s, %s) RETURNING game_id'''
                 cursor.execute(query,(name, price, company, age, mode, trailer, info))
                 connection.commit()
-                
+                gameid=cursor.fetchone()[0]
                 if request.form.getlist('genre'):
                     for i in request.form.getlist('genre'):
                         query='''INSERT INTO game_genre_rel(game_id, genre_id) VALUES
@@ -262,9 +262,6 @@ def new_game():
                             VALUES((SELECT game_id FROM game WHERE game_name=%s),(SELECT genre_id FROM genres WHERE genre_name=%s))'''
                             cursor.execute(query,(name,i))
                             connection.commit()
-                query='''SELECT game_id FROM game WHERE game_name=%s'''
-                cursor.execute(query,(name,))
-                gameid=cursor.fetchone()[0]
                 db = current_app.config["db"]
                 db.add_game(create_game(gameid))
                 return redirect(url_for('game_page',gameid=gameid))
